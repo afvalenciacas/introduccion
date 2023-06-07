@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import View, UpdateView, DeleteView
 from .forms import PostCreateForm
-from . models import Post
+from .models import Post
 from django.urls import reverse_lazy
 
 
@@ -14,8 +14,7 @@ class BlogListView(View):
 
         }
         return render(request, 'blog_list.html', context)
-
-
+    
 
 
 class BlogCreateView(View):
@@ -44,6 +43,7 @@ class BlogCreateView(View):
         return render(request, 'blog_create.html', context)
     
 
+
 class BlogDetailView(View):
     def get(self, request, pk, *args, **kwargs):
         post=get_object_or_404(Post, pk=pk)
@@ -54,6 +54,7 @@ class BlogDetailView(View):
         return render(request, 'blog_detail.html', context)
     
 
+
 class BlogUpdateView(UpdateView):
     model=Post
     fields=['title','content']
@@ -63,7 +64,8 @@ class BlogUpdateView(UpdateView):
         pk = self.kwargs['pk']
         return reverse_lazy('blog:detail', kwargs={'pk':pk})
 
-    
+
+
 class BlogDeleteView(DeleteView):
     model=Post
     template_name='blog_delete.html'
